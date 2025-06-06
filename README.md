@@ -1,73 +1,95 @@
 
-# 💳 Credit Card Fraud Detection
+# 💳 Credit Card Fraud Detection using ML
 
-## 🧠 Overview
+## 🚀 Overview
+This project tackles the critical challenge of detecting fraudulent credit card transactions using supervised machine learning models. The dataset is heavily imbalanced, which is addressed using SMOTE. Models are trained, evaluated, and explained using a full ML pipeline with visualization and interpretability techniques.
 
-This project aims to detect fraudulent transactions using anonymized credit card transaction data. The pipeline applies supervised machine learning models to imbalanced financial data, emphasizing model performance and interpretability.
+## 📚 Dataset
+- **Rows:** 9,999 transactions
+- **Features:** 28 anonymized PCA components (`V1`–`V28`), `Amount`, and target `Class`
+- **Target:**
+  - `0`: Non-Fraud (majority class)
+  - `1`: Fraud (minority class, ~0.38%)
 
-## 📂 Dataset
+## 🧪 Project Pipeline
 
-- Source: Credit card transactions of European cardholders.
-- Size: ~10,000 samples, 30 anonymized features (`V1` to `V28`, `Amount`, `Time`, `Class`)
-- Target: `Class` (0 = Legitimate, 1 = Fraud)
+1. **Exploratory Data Analysis**
+   - Class imbalance visualization
+   - Distribution plots of transaction amounts
+   - Correlation heatmaps and boxplots
 
-> Note: The dataset is highly imbalanced with fraud cases making up ~0.17% of total transactions.
+2. **Preprocessing**
+   - Handled extreme class imbalance using **SMOTE**
+   - Standardized features using `StandardScaler`
 
-## 🔧 Technologies Used
+3. **Modeling**
+   - Trained 3 classifiers:
+     - `RandomForestClassifier`
+     - `XGBClassifier`
+     - `CatBoostClassifier`
+   - Hyperparameter tuning with `GridSearchCV`
 
-- Python (Pandas, NumPy)
-- Machine Learning: `XGBoost`, `Random Forest`, `CatBoost`
-- Model Interpretation: `SHAP`
-- Data Visualization: `Seaborn`, `Matplotlib`
-- Imbalance Handling: `SMOTE`
+4. **Evaluation**
+   - Metrics: Accuracy, Precision, Recall, F1-Score, ROC-AUC
+   - Visuals: Confusion Matrix, ROC Curve
+   - Model performance:
+     - All three models achieved nearly perfect accuracy and AUC (~1.0)
 
-## 🧪 Project Workflow
+5. **Model Explainability**
+   - Feature importances extracted from Random Forest
+   - Top features: `V14`, `V10`, `V12`, `V4`, `V3`
 
-1. **Data Cleaning**: Remove missing or inconsistent data
-2. **Exploratory Data Analysis**: Visualize class imbalance and transaction patterns
-3. **Resampling**: Applied SMOTE to balance the dataset
-4. **Model Training**:
-   - Trained multiple classifiers (XGBoost, Random Forest, CatBoost)
-   - Tuned hyperparameters with cross-validation
-5. **Model Evaluation**:
-   - Used metrics like accuracy, recall, precision, F1-score, and ROC-AUC
-   - Interpreted predictions using SHAP for feature importance
+6. **Deployment Ready**
+   - Final model saved via `joblib` as `Best_random_forest.pkl`
 
-## 📊 Evaluation Metrics
+## 📊 Sample Evaluation Output
 
-- **Precision**: To reduce false positives
-- **Recall**: To catch maximum fraud cases
-- **ROC-AUC**: Overall classifier quality
+| Metric      | Random Forest | XGBoost | CatBoost |
+|-------------|---------------|---------|----------|
+| Accuracy    | 1.00          | 1.00    | 0.999    |
+| Precision   | 1.00          | 1.00    | 1.00     |
+| Recall      | 1.00          | 1.00    | 1.00     |
+| ROC-AUC     | 1.00          | 1.00    | 0.999    |
 
-| Model       | Precision | Recall | F1-score | ROC-AUC |
-|-------------|-----------|--------|----------|---------|
-| XGBoost     | 0.92      | 0.87   | 0.89     | 0.98    |
-| RandomForest| 0.89      | 0.84   | 0.86     | 0.96    |
-| CatBoost    | 0.91      | 0.86   | 0.88     | 0.97    |
+## 🛠 Technologies Used
+- Python, Pandas, NumPy, Seaborn, Matplotlib
+- Machine Learning:
+  - `sklearn`
+  - `xgboost`
+  - `catboost`
+  - `imblearn` (SMOTE)
+- Model Export: `joblib`
 
-## 📦 Saved Artifacts
+## 📂 Folder Structure
 
-- Final model serialized via `joblib` or `pickle`
-- SHAP value plots exported as `.png` for model transparency
+├── Credit Card Fraud Detection.ipynb
+├── creditcard_2023_New.csv
+├── Best_random_forest.pkl
+└── README.md
 
-## 🚀 How to Run
+## 📌 How to Run
 
-1. Clone this repo and install dependencies:
+1. Clone the repository.
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
 
-	2.	Run the notebook Credit Card Fraud Detection.ipynb
-	3.	Check results/ folder for saved models and SHAP visualizations
+	3.	Open the notebook and run all cells:
 
-🔮 Future Work
-	•	Incorporate deep learning models like AutoEncoders for anomaly detection
-	•	Deploy model as a REST API using Flask or FastAPI
-	•	Automate data ingestion pipeline from real-time sources
+Credit Card Fraud Detection.ipynb
+
+
+	4.	Evaluate the saved model from Best_random_forest.pkl.
+
+🔮 Future Improvements
+	•	Add SHAP visualizations for deeper explainability
+	•	Deploy as a real-time fraud detection API (FastAPI or Flask)
+	•	Integrate into a larger fraud analytics dashboard
 
 📜 License
 
-MIT License
+This project is licensed under the MIT License.
 
 ---
 
-Let me know if you want me to auto-generate a `requirements.txt`, or shorten any section of the README for a job submission. |oai:code-citation|
+Let me know if you'd like me to generate a `requirements.txt` file or convert this into a LaTeX `\section{}` style block for inclusion in your resume PDF.
